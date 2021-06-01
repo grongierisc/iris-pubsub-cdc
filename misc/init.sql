@@ -34,7 +34,7 @@ BEGIN
     ELSIF (TG_OP = 'UPDATE') THEN
         INSERT INTO public.bal SELECT NEW.id,'formation','UPADTE', now(); 
     ELSIF (TG_OP = 'INSERT') THEN
-        INSERT INTO public.bal SELECT NEW.id,'INSERT','formation', now();
+        INSERT INTO public.bal SELECT NEW.id,'formation','INSERT' now();
     END IF;
     RETURN NULL; -- le résultat est ignoré car il s'agit d'un trigger AFTER
 END;
