@@ -2,8 +2,8 @@ CREATE SCHEMA demodata;
 
 CREATE TABLE public.formation (
 	id int8 NULL,
-	nom varchar NULL,
-	salle varchar NULL
+	nom varchar(50) NULL,
+	salle varchar(50) NULL
 );
 
 INSERT INTO public.formation
@@ -16,8 +16,8 @@ VALUES(2, 'formation2', 'salle2');
 
 CREATE TABLE public.bal (
 	id int8 NULL,
-	obj varchar NULL,
-	verbe varchar NULL,
+	obj varchar(50) NULL,
+	verbe varchar(50) NULL,
 	datec timestamp NOT NULL
 );
 
@@ -32,9 +32,9 @@ BEGIN
     IF (TG_OP = 'DELETE') THEN
         INSERT INTO public.bal SELECT OLD.id,'formation','DELETE', now();
     ELSIF (TG_OP = 'UPDATE') THEN
-        INSERT INTO public.bal SELECT NEW.id,'formation','UPADTE', now(); 
+        INSERT INTO public.bal SELECT NEW.id,'formation','UPDATE', now(); 
     ELSIF (TG_OP = 'INSERT') THEN
-        INSERT INTO public.bal SELECT NEW.id,'formation','INSERT' now();
+        INSERT INTO public.bal SELECT NEW.id,'formation','INSERT', now();
     END IF;
     RETURN NULL; -- le résultat est ignoré car il s'agit d'un trigger AFTER
 END;
