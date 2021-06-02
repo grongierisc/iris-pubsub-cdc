@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <PubSub>
-	<Domain Description="PubSub des Entity" Name="Entity Synch"/>
-	<Subscriber Address="https://btqc-admin-api.dev.integ.afnor.org/ServiceBackOffice.svc/EntityCallBack/" Domain="Entity Synch" Name="ACE2" Target="WS_REST_CALLBACK"/>
-	<Subscriber Address="" Domain="Entity Synch" Name="ACO_Agate_Avoirs" Target="PROC_ERP8_ACO"/>
-	<Subscription Domain="Entity Synch" Subscriber="GEC_Personne_EAI" Topic="Master.PP.*.*"/>
-			
+	<Domain Description="PubSub des Entity" Name="PubSub"/>
+	<Subscriber Address="" Domain="PubSub" Name="Formation Local" Target="PubSub.BP.Local"/>
+	<Subscriber Address="http://localhost:52773/api/pubsub/callback" Domain="PubSub" Name="Formation Rest" Target="PubSub.BO.RestCallback"/>
+	<Subscription Domain="PubSub" Subscriber="Formation Local" Topic="*.*.formation"/>
+	<Subscription Domain="PubSub" Subscriber="Formation Rest" Topic="*.INSERT.formation"/>
 </PubSub>
