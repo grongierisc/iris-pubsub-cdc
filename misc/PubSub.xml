@@ -2,7 +2,7 @@
 <PubSub>
 	<Domain Description="PubSub des Entity" Name="PubSub"/>
 	<Subscriber Address="" Domain="PubSub" Name="Formation Local" Target="PubSub.BP.Local"/>
-	<Subscriber Address="http://localhost:52773/api/pubsub/callback" Domain="PubSub" Name="Formation Rest" Target="PubSub.BO.RestCallback"/>
+	<Subscriber Address="http://mockbin.org/bin/8cbb74e3-8cd8-4139-bf91-16c036f0bcd8" Domain="PubSub" Name="Formation Rest" Target="PubSub.BO.RestCallback"/>
 	<Subscription Domain="PubSub" Subscriber="Formation Local" Topic="*.*.formation"/>
 	<Subscription Domain="PubSub" Subscriber="Formation Rest" Topic="*.INSERT.formation"/>
 </PubSub>
