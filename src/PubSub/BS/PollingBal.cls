@@ -13,6 +13,8 @@ Method OnProcessInput(pInput As EnsLib.SQL.Snapshot, Output pOutput As %Register
 	try {
 		set req = ##class(PubSub.Msg.CallbackRequest).%New()
 
+		$$$LOGINFO("in test")
+
 		set req.Id = pInput.Get("id")
 		set req.Obj = pInput.Get("obj")
 		set req.Verbe = pInput.Get("verbe")

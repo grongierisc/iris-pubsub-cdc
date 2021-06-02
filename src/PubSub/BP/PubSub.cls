@@ -2,10 +2,11 @@
 Class PubSub.BP.PubSub Extends Ens.BusinessProcessBPL
 {
 
+
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
-<process language='objectscript' request='EnsLib.PubSub.Request' response='Ens.Response' height='2000' width='2000' >
+<process language='objectscript' request='PubSub.Msg.CallbackRequest' response='Ens.Response' height='2000' width='2000' >
 <context>
 <property name='Targets' type='EnsLib.PubSub.Target' collection='list' instantiate='0' />
 <property name='targetKey' type='%String' instantiate='0' >
@@ -27,25 +28,27 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <sequence xend='200' yend='450' >
 <call name='Get Subscribers' target='EnsLib.PubSub.PubSubOperation' async='0' xpos='200' ypos='250' >
 <request type='EnsLib.PubSub.Request' >
-<assign property="callrequest" value="request" action="set" />
+<assign property="callrequest.Message" value="request" action="set" />
+<assign property="callrequest.Topic" value="request.Id_&quot;.&quot;_request.Verbe_&quot;.&quot;_request.Obj" action="set" />
+<assign property="callrequest.DomainName" value="&quot;PubSub&quot;" action="set" />
 </request>
 <response type='EnsLib.PubSub.Response' >
 <assign property="context.Targets" value="callresponse.TargetList" action="set" />
 </response>
 </call>
-<foreach name='Target' property='context.Targets' key='context.targetKey' xpos='200' ypos='350' xend='200' yend='800' >
-<scope xpos='200' ypos='250' xend='200' yend='700' >
-<call name='Subcriber' target='@context.Targets.GetAt(context.targetKey).Target' async='1' xpos='200' ypos='450' >
+<foreach name='Target' property='context.Targets' key='context.targetKey' xpos='200' ypos='350' xend='200' yend='700' >
+<scope xpos='200' ypos='250' xend='200' yend='600' >
+<call name='Subcriber' target='@context.Targets.GetAt(context.targetKey).Target' async='1' xpos='200' ypos='350' >
 <request type='PubSub.Msg.CallbackRequest' >
-<assign property="callrequest.Obj" value="$PIECE(request.Topic,&quot;.&quot;,2)" action="set" />
-<assign property="callrequest.Id" value="$PIECE(request.Topic,&quot;.&quot;,4)" action="set" />
-<assign property="callrequest.Verbe" value="$PIECE(request.Topic,&quot;.&quot;,3)" action="set" />
 <assign property="callrequest.URI" value="context.Targets.GetAt(context.targetKey).Address" action="set" />
+<assign property="callrequest.Verbe" value="request.Verbe" action="set" />
+<assign property="callrequest.Id" value="request.Id" action="set" />
+<assign property="callrequest.Obj" value="request.Obj" action="set" />
 </request>
 <response type='Ens.StringResponse' />
 </call>
 <faulthandlers>
-<catchall xpos='200' ypos='550' xend='200' yend='650' >
+<catchall xpos='200' ypos='450' xend='200' yend='450' >
 <code name='Affecte AlertDestiantion' xpos='200' ypos='250' >
 <![CDATA[ if ( $SYSTEM.Status.GetErrorCodes(..%Context.%LastError)="9200") { set context.AlertDestination="Metier" } else
  {
@@ -68,11 +71,6 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </foreach>
 </sequence>
 </process>
-}
-
-Storage Default
-{
-<Type>%Storage.Persistent</Type>
 }
 
 }
