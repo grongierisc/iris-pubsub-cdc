@@ -9,9 +9,9 @@ Method onCallbackRequest(pRequest As PubSub.Msg.CallbackRequest, Output pRespons
 	  set pResponse = ##class(Ens.StringResponse).%New()
     	
     	set tDyna = {}
-      	set tDyna.type = pRequest.entityType
-      	set tDyna.operation = pRequest.operationType
-      	set tDyna.id = pRequest.entityId
+      	set tDyna.obj = pRequest.Obj
+      	set tDyna.verbe = pRequest.Verbe
+      	set tDyna.id = pRequest.Id
       
       	set json = tDyna.%ToJSON()
     	

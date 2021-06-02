@@ -33,7 +33,7 @@ ClassMethod callback() As %Status
 			set request = ##class(Ens.StringRequest).%New()
 			set request.StringValue = body
 			
-			$$$ThrowOnError(##class(Ens.Director).CreateBusinessService("WS_IN_CALLBACK",.tService))
+			$$$ThrowOnError(##class(Ens.Director).CreateBusinessService("PubSub.BS.RESTServiceCallBack",.tService))
 			$$$ThrowOnError(tService.ProcessInput(request,.output))
 		
 		}

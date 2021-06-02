@@ -8,7 +8,7 @@ Method InsertLocalBDD(pRequest As PubSub.Msg.FormationInsertRequest, Output pRes
     set tStatus = $$$OK
     
     try{
-        set pResponse = ##class(PubSub.Msg.FormationInsertResponse).%New()
+        set pResponse = ##class(Ens.StringResponse).%New()
         set tFormation = ##class(PubSub.Table.Formation).%New()
         set tFormation.Nom = pRequest.Formation.Nom
         set tFormation.Salle = pRequest.Formation.Salle
